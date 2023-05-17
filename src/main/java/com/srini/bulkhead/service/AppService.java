@@ -7,12 +7,20 @@ import org.springframework.stereotype.Service;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.atomic.AtomicInteger;
 
+/**
+ * The type App service.
+ */
 @Service
 @Slf4j
 public class AppService {
 
     private final AtomicInteger counter = new AtomicInteger() ;
 
+    /**
+     * Get completable future.
+     *
+     * @return the completable future
+     */
     @Bulkhead(name = "serviceA", type = Bulkhead.Type.THREADPOOL, fallbackMethod = "fallbackA")
     public CompletableFuture<String> get(){
         log.info("get method called {} time(s)", counter.incrementAndGet());
